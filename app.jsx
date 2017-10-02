@@ -15,7 +15,16 @@ class QuizApp extends React.Component {
     }
 
     onClick(e, index) {
-        console.log(this.props[index]);
+        
+        let userAnswer = this.state.answerOptions[index];
+        console.log(correctAnswer);
+        if(userAnswer == this.state.answer){
+            console.log("correct");
+        }
+        else{
+            console.log("incorrect");
+        }
+
         this.setState({
             image: "img/History/virrey.jpg",
             question: "¿Cuál fue el último virrey del Perú?",
