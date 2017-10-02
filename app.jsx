@@ -1,8 +1,9 @@
 class QuizApp extends React.Component {
     constructor(props) {
         super(props);
-
+        this.cont = 0,
         this.state = {
+            
             image: "img/History/paracas.jpg",
             question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
             answerOptions: ["Nazca", "Chimu", "Paracas"],
@@ -10,58 +11,46 @@ class QuizApp extends React.Component {
             progress: $('#bar').css('width', 0 + '%')
         };
 
-        this.NextQuestion = this.NextQuestion.bind(this);
-
+       // console.log(props);
     }
 
-    onClick(e, index,props) {
-        console.log(props);
+    onClick(e, index) {
+        
         let userAnswer = this.state.answerOptions[index];
-        console.log(userAnswer);
-        if(userAnswer == this.state.answer){
+        this.cont = this.cont +1;
+        //console.log(this.cont);
+        if (userAnswer == this.state.answer) {
             console.log("correct");
         }
-        else{
+        else {
             console.log("incorrect");
         }
-
         this.setState({
-            image: "img/History/virrey.jpg",
-            question: "¿Cuál fue el último virrey del Perú?",
-            answerOptions: ["Francisco de Borja y Aragon", "Jose de la Serna Hinojosa", "Blasco Nuñez Vela"],
-            answer: "Jose de la Serna Hinojosa",
-            progress: $('#bar').css('width',20 + '%')
+            
+            image: this.props.questions[this.cont].image,
+            question: this.props.questions[this.cont].question,
+            answerOptions: this.props.questions[this.cont].answers,
+            answer: this.props.questions[this.cont].answer,
+            progress: $('#bar').css('width', 20 + '%')
         });
+        
     }
 
+    render() {
 
-    NextQuestion() {
-        const length = this.props.questions.length;
-        const { index } = this.state;
-        if (index === length - 1) {
-            this.setState({
-                complete: true
-            });
-        } else {
-            this.setState({
-                index: this.state.index + 1,
-                answer: null
-            });
-        }
-    }
-    render(props) {
         const getAnswerList = (answers) => {
+            
             return answers.map((answer, index) => {
                 return (
                     <li key={index}>
-                        <a className="btn btn-block btn-warning btnClic" id={index} onClick= { (e) => this.onClick (e, index,props) }>{answer}</a>
+                        <a className="btn btn-block btn-warning btnClic" id={index} onClick={(e) => this.onClick(e, index)}>{answer}</a>
                     </li >
 
                 );
             });
         }
         const AnswerList = ({ answers }) => {
-
+            
             return (
                 <div>
                     <ul>{getAnswerList(answers)}</ul>
@@ -69,7 +58,7 @@ class QuizApp extends React.Component {
             );
         }
         const Quiz = (props) => {
-            console.log(props.answerOptions);
+            
             return (
                 <div className="quiz">
                     <h2 className="question">{props.question}</h2>
@@ -86,6 +75,7 @@ class QuizApp extends React.Component {
             );
         }
         return (
+            
             <div className="questions container-fluid">
                 <div className="row">
                     <div className="col-md-12 col-xs-12 col-sm-12">
