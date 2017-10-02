@@ -1,0 +1,234 @@
+class QuizApp extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            image: "img/History/paracas.jpg",
+            question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
+            answerOptions: ["Nazca", "Chimu", "Paracas"],
+            answer: "Paracas"
+        };
+        
+        this.NextQuestion = this.NextQuestion.bind(this);
+
+    }
+
+    onClick (e, index) {
+        
+        this.setState ({
+            image: quizQuestions[0].image,
+            question: quizQuestions[0].question,
+            answerOptions: quizQuestions[0].answers,
+            answer: ''
+        });    
+     }
+
+
+    NextQuestion() {
+        const length = this.props.questions.length;
+		const { index } = this.state;
+		if (index === length - 1) {
+			this.setState({
+				complete: true
+			});
+		} else {
+			this.setState({
+				index: this.state.index + 1,
+				answer: null
+			});
+		}
+    }
+    render() {
+        const Question = () => {
+            return (
+                <h2 className="question">{this.state.content}</h2>
+            );
+        }
+        const Quiz = (props) => {
+            return (
+                <div className="quiz">
+                    <Question content={this.state.question} />
+ 
+                </div>
+            );
+        }
+        return (
+            <div className="questions">
+                <div className="imagenes">
+                    {this.state.image}
+                </div>
+                <Quiz
+                    question={this.state.question}
+                    answer={this.state.answer}
+                    answerOptions={this.state.answerOptions}
+                />
+            </div>
+        );
+    }
+
+}
+
+const questionsArray = [
+    {
+        image: "img/History/paracas.jpg",
+        question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
+        answers: ["Nazca", "Chimu", "Paracas"],
+        correctAnswer: "Paracas"
+    },
+    {
+        image: "img/History/virrey.jpg",
+        question: "¿Cuál fue el último virrey del Perú?",
+        answers: ["Francisco de Borja y Aragon", "Jose de la Serna Hinojosa", "Blasco Nuñez Vela"],
+        correctAnswer: "Jose de la Serna Hinojosa"
+    },
+    {
+        image: "img/History/mancoInca.jpg",
+        question: "¿Quien ayudo a los españoles en su camino de Cajamarca a Cusco en 1583?",
+        answers: ["Calcuchimac", "Manco Inca", "Huascar"],
+        correctAnswer: "Manco Inca"
+
+    },
+    {
+        image: "img/History/primerGobierno.jpg",
+        question: "¿Cuanto tiempo duró el gobierno del primer Presidente del Peru?",
+        answers: ["24 meses", "13 meses", "4 meses"],
+        correctAnswer: "4 meses"
+    },
+    {
+        image: "img/History/conflictos.jpg",
+        question: "¿Con cuál de estos paises el Perú tuvo más conflictos armados?",
+        answers: ["Chile", "Ecuador", "Bolivia"],
+        correctAnswer: "Ecuador"
+    }
+];
+
+ReactDOM.render(<QuizApp questions={questionsArray} />, document.getElementById("containerQuizz"));
+
+/*
+class QuizApp extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log(props.questions);
+        return {
+            questionData: props.questions,
+            progress: 0,
+            score: 0
+        };
+    }
+    checkAnswer(index) {
+        let correct = this.state.questionData[this.state.progress].correct;
+        let newScore = 0, newProgress = 0;
+        if (correct === index) {
+            newScore = this.state.score + 1;
+            this.setState({ score: newScore });
+            newProgress = this.state.progress + 1;
+            this.setState({ progress: newProgress });
+        } else {
+            newProgress = this.state.progress + 1;
+            this.setState({ progress: newProgress });
+        }
+    }
+    resetQuiz() {
+        this.setState({ score: 0, progress: 0 });
+    }
+
+    render() {
+        let questionDatum = this.state.questionData[this.state.progress];
+        return (
+            <div>
+                <Questions questionDatum={questionDatum} />
+                <AnswerList answers={questionDatum.answers} answerCallback={this.checkAnswer} />
+                <Score score={this.state.score} />
+                <Progress progress={this.state.progress} />
+            </div>
+        );
+
+    }
+};
+
+let Score = React.createClass({
+    render() {
+        return (
+            <span>Score: {this.props.score}</span>
+        )
+    }
+});
+
+let Progress = React.createClass({
+    render() {
+        return (
+            <p>Question {this.props.progress + 1}</p>
+        )
+    }
+});
+
+let Questions = React.createClass({
+    render() {
+        return (
+            <p>{this.props.questionDatum.prompt}</p>
+        )
+    }
+});
+
+let AnswerList = React.createClass({
+    render() {
+        return (
+            <ul>
+                {this.props.answers.map(function (answer, index) {
+                    return (
+                        <ListItem answerItem={answer} answerCallback={this.props.answerCallback} index={index} />
+                    )
+                }, this)}
+            </ul>
+        );
+    }
+});
+
+let ListItem = React.createClass({
+    onClickAnswer() {
+        this.props.answerCallback(this.props.index);
+    },
+    render() {
+        return (
+            <li onClick={this.onClickAnswer}>{this.props.answerItem}</li>
+        );
+    }
+});
+
+const questionsArray = [
+    {
+        image: "img/History/paracas.jpg",
+        question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
+        answers: ["Nazca", "Chimu", "Paracas"],
+        correctAnswer: "Paracas"
+    },
+    {
+        image: "img/History/virrey.jpg",
+        question: "¿Cuál fue el último virrey del Perú?",
+        answers: ["Francisco de Borja y Aragon", "Jose de la Serna Hinojosa", "Blasco Nuñez Vela"],
+        correctAnswer: "Jose de la Serna Hinojosa"
+    },
+    {
+        image: "img/History/mancoInca.jpg",
+        question: "¿Quien ayudo a los españoles en su camino de Cajamarca a Cusco en 1583?",
+        answers: ["Calcuchimac", "Manco Inca", "Huascar"],
+        correctAnswer: "Manco Inca"
+
+    },
+    {
+        image: "img/History/primerGobierno.jpg",
+        question: "¿Cuanto tiempo duró el gobierno del primer Presidente del Peru?",
+        answers: ["24 meses", "13 meses", "4 meses"],
+        correctAnswer: "4 meses"
+    },
+    {
+        image: "img/History/conflictos.jpg",
+        question: "¿Con cuál de estos paises el Perú tuvo más conflictos armados?",
+        answers: ["Chile", "Ecuador", "Bolivia"],
+        correctAnswer: "Ecuador"
+    }
+];
+
+ReactDOM.render(<QuizApp questions={questionsArray} />, document.getElementById("containerQuizz"));
+
+*/

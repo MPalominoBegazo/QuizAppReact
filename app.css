@@ -1,0 +1,47 @@
+body{
+  background: url("../img/machupichu.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+#containerQuizz{
+  margin: 100px 100px;
+  background-color: #7BCBEB;
+  opacity: 0.9;
+}
+
+.imageSize{
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+}
+
+.progress-bar{
+  width: 0%;
+}
+
+li{
+  list-style: none; 
+}
+
+#containerQuizz{
+  padding: 20px;
+}
+
+#bar{
+  width: 1%;
+  height: 30px;
+  background-color: #85C585;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+  margin-bottom: 20px;
+}
