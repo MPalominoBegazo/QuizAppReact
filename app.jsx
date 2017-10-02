@@ -2,13 +2,14 @@ class QuizApp extends React.Component {
     constructor(props) {
         super(props);
         this.cont = 0,
+        this.barCounter = 0;
         this.state = {
             
-            image: "img/History/paracas.jpg",
-            question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
-            answerOptions: ["Nazca", "Chimu", "Paracas"],
-            answer: "Paracas",
-            progress: $('#bar').css('width', 0 + '%')
+            image: this.props.questions[this.cont].image,
+            question: this.props.questions[this.cont].question,
+            answerOptions: this.props.questions[this.cont].answers,
+            answer: this.props.questions[this.cont].answer,
+            progress: $('#bar').css('width', this.barCounter + '%')
         };
 
        // console.log(props);
@@ -18,6 +19,7 @@ class QuizApp extends React.Component {
         
         let userAnswer = this.state.answerOptions[index];
         this.cont = this.cont +1;
+        this.barCounter = this.barCounter +25;
         //console.log(this.cont);
         if (userAnswer == this.state.answer) {
             console.log("correct");
@@ -31,7 +33,7 @@ class QuizApp extends React.Component {
             question: this.props.questions[this.cont].question,
             answerOptions: this.props.questions[this.cont].answers,
             answer: this.props.questions[this.cont].answer,
-            progress: $('#bar').css('width', 20 + '%')
+            progress: $('#bar').css('width', this.barCounter + '%')
         });
         
     }
