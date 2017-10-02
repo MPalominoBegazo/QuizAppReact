@@ -82,7 +82,7 @@ class QuizApp extends React.Component {
                     <div className="col-md-12 col-xs-12 col-sm-12">
                         <div id="myProgress">
                             <div id="bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                <span class="sr-only">0%</span>
+                                <span class="sr-only"></span>
                             </div>
                         </div>
                     </div>
