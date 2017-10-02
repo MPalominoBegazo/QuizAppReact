@@ -14,10 +14,10 @@ class QuizApp extends React.Component {
 
     }
 
-    onClick(e, index) {
-        
+    onClick(e, index,props) {
+        console.log(props);
         let userAnswer = this.state.answerOptions[index];
-        console.log(correctAnswer);
+        console.log(userAnswer);
         if(userAnswer == this.state.answer){
             console.log("correct");
         }
@@ -49,12 +49,12 @@ class QuizApp extends React.Component {
             });
         }
     }
-    render() {
+    render(props) {
         const getAnswerList = (answers) => {
             return answers.map((answer, index) => {
                 return (
                     <li key={index}>
-                        <a className="btn btn-block btn-warning btnClic" id={index} onClick= { (e) => this.onClick (e, index) }>{answer}</a>
+                        <a className="btn btn-block btn-warning btnClic" id={index} onClick= { (e) => this.onClick (e, index,props) }>{answer}</a>
                     </li >
 
                 );
