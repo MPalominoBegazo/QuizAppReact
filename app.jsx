@@ -6,7 +6,8 @@ class QuizApp extends React.Component {
             image: "img/History/paracas.jpg",
             question: "¿De qué cultura son caracteriticas las trepanaciones craneanas?",
             answerOptions: ["Nazca", "Chimu", "Paracas"],
-            answer: "Paracas"
+            answer: "Paracas",
+            progress: $('#bar').css('width', 0 + '%')
         };
 
         this.NextQuestion = this.NextQuestion.bind(this);
@@ -14,12 +15,13 @@ class QuizApp extends React.Component {
     }
 
     onClick(e, index) {
-
+        console.log(this.props[index]);
         this.setState({
-            image: quizQuestions[0].image,
-            question: quizQuestions[0].question,
-            answerOptions: quizQuestions[0].answers,
-            answer: ''
+            image: "img/History/virrey.jpg",
+            question: "¿Cuál fue el último virrey del Perú?",
+            answerOptions: ["Francisco de Borja y Aragon", "Jose de la Serna Hinojosa", "Blasco Nuñez Vela"],
+            answer: "Jose de la Serna Hinojosa",
+            progress: $('#bar').css('width',20 + '%')
         });
     }
 
@@ -43,7 +45,7 @@ class QuizApp extends React.Component {
             return answers.map((answer, index) => {
                 return (
                     <li key={index}>
-                        <a className="btn btn-block btn-warning btnClic" id={index}>{answer}</a>
+                        <a className="btn btn-block btn-warning btnClic" id={index} onClick= { (e) => this.onClick (e, index) }>{answer}</a>
                     </li >
 
                 );
