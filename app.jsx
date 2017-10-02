@@ -2,38 +2,34 @@ class QuizApp extends React.Component {
     constructor(props) {
         super(props);
         this.cont = 0,
-            this.answersUser = [],
-            this.barCounter = 0;
-        this.state = {
+        this.answersUser = [],
+        this.answersComp = [],
+        this.barCounter = 0;
+        this.answersComp.push(this.props.questions[this.cont].correctAnswer); 
 
+        this.state = {
             image: this.props.questions[this.cont].image,
             question: this.props.questions[this.cont].question,
             answerOptions: this.props.questions[this.cont].answers,
-            answer: this.props.questions[this.cont].answer,
+            answer: this.props.questions[this.cont].correctAnswer,
             progress: $('#bar').css('width', this.barCounter + '%')
         };
     }
 
     onClick(e, index) {
         let userAnswer = this.state.answerOptions[index];
-        this.cont = this.cont + 1;
 
+        this.cont = this.cont + 1;
+        this.answersComp.push(this.props.questions[this.cont].correctAnswer);        
         this.barCounter = this.barCounter + 25;
-        if (userAnswer == this.state.answer) {
-            console.log("correct");
-            this.answersUser.push(userAnswer);
-        }
-        else {
-            console.log("incorrect");
-            this.answersUser.push(userAnswer);
-        }
-        console.log(this.answersUser);
+        this.answersUser.push(userAnswer);
+
         this.setState({
 
             image: this.props.questions[this.cont].image,
             question: this.props.questions[this.cont].question,
             answerOptions: this.props.questions[this.cont].answers,
-            answer: this.props.questions[this.cont].answer,
+            answer: this.props.questions[this.cont].correctAnswer,
             progress: $('#bar').css('width', this.barCounter + '%')
         });
 
@@ -118,6 +114,15 @@ class QuizApp extends React.Component {
                     );
                 });
             }
+            const getAnswerComp = () => {
+                return this.answersComp.map((answer, index) => {
+                    return (
+                        <li key={index}>
+                            <p>{answer}</p>
+                        </li>
+                    );
+                });
+            }
             const AnswerUserList = () => {
 
                 return (
@@ -129,7 +134,7 @@ class QuizApp extends React.Component {
             const CorrectAnswers = () => {
                 return (
                     <div>
-                        <ul>{getAnswerUser()}</ul>
+                        <ul>{getAnswerComp()}</ul>
                     </div>
                 );
             }
